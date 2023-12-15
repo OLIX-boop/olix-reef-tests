@@ -1,0 +1,3 @@
+Credenziali database:
+-user: OLIX
+-pass: 260207
