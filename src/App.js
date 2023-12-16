@@ -1,34 +1,10 @@
-import React, { useState} from "react";
+import React, { useState,useEffect } from "react";
 import Chart from "./components/chart.js";
 import Button from "./components/button.js";
 import appStyle from "./app.module.css";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const testsData = [
-  { NO3: 0.2, NO2: 0.03, PO4: 0.27, KH: 8.5, MG: 1250, CA: 350, date: '15 luglio' },
-  { KH: 8.5, MG: 1250, NO3: 0.1, NO2: 0.003, PO4: 0.11, CA: 380, date: '22 luglio' },
-  { MG: 1260, KH: 8.5, CA: 370, NO3: 0.2, NO2: 0.003, PO4: 0.09, date: '29 luglio' },
-  { KH: 7.5, MG: 1260, CA: 345, NO3: 0.1, NO2: 0.003, PO4: 0.1, date: '5 agosto' },
-  { MG: 1260, NO3: 0.1, NO2: 0.002, KH: 8, PO4: 0.1, CA: 380, date: '12 agosto' },
-  { KH: 7.5, NO3: 0.1, NO2: 0.002, CA: 410, MG: 1290, PO4: 0.08, date: '19 agosto' },
-  { NO3: 0.1, NO2: 0.003, PO4: 0.06, MG: 1260, KH: 7.5, CA: 370, date: '26 agosto' },
-  { NO3: 0.05, NO2: 0.002, PO4: 0.08, KH: 8, MG: 1290, CA: 360, date: '2 settembre' },
-  { NO3: 0.05, NO2: 0.003, PO4: 0.05, KH: 7.5, MG: 1320, CA: 350, date: '9 settembre' },
-  { KH: 7.5, MG: 1280, CA: 430, NO2: 0.002, NO3: 0.2, PO4: 0.06, date: '16 settembre' },
-  { NO2: 0.01, NO3: 0.3, PO4: 0.03, KH: 7.5, MG: 1290, CA: 380, date: '23 settembre' },
-  { NO2: 0.02, NO3: 0.4, PO4: 0.05, KH: 8, CA: 390,MG: 1410, date: '30 settembre' },
-  { NO2: 0.003, NO3: 0.2, PO4: 0.02, KH: 7.5, MG: 1260, CA: 430, date: '7 ottobre' },
-  { NO2: 0.005, NO3: 0.3, PO4: 0.01, KH: 7.5, MG: 1320, CA: 390, date: '14 ottobre' },
-  { NO2: 0.01, NO3: 0.2, PO4: 0.02, KH: 7.5, MG: 1320, CA: 380, date: '21 ottobre' },
-  { NO2: 0.02, NO3: 0.05, PO4: 0.03, KH: 7, CA: 380, MG: 1350, date: '28 ottobre' },
-  { NO2: 0.02, NO3: 0.05, PO4: 0.02, KH: 7.5, CA: 390, MG: 1320, date: '4 novembre' },
-  { NO2: 0.02, NO3: 0, PO4: 0.05, KH: 8.5, CA: 390, MG: 1230, date: '11 novembre' },
-  { NO2: 0.003, NO3: 0.2, PO4: 0.03, KH: 8.5, CA: 410, MG: 1350, date: '18 novembre' },
-  { NO2: 0.005, NO3: 5, PO4: 0.07, KH: 8.5, CA: 400, MG: 1350, date: '25 novembre' },
-  { NO2: 0.02, NO3: 5, PO4: 0.06, KH: 7.5, CA: 410, MG: 1430, date: '2 dicembre' },
-  { NO2: 0.01, NO3: 4, PO4: 0.02, KH: 8, CA: 410, MG: 1380, date: '9 dicembre' }
-];
-
-const labels = testsData.map(obj => obj.date);
 
 const colors = {
   KH: { r: 255, g: 0, b: 0 },
@@ -39,26 +15,72 @@ const colors = {
   PO4: { r: 0, g: 0, b: 255 },
 };
 
-
+var loadedOnce = false;
 const App = () => {
-  const [data, setData] = useState({
-    labels,
-    datasets: [
-      {
-        fill: true,
-        label: 'KH',
-        data: testsData.map(obj => obj["KH"]),
-        borderColor: 'rgb(255, 0, 0)',
-        backgroundColor: 'rgba(255, 0, 0, 0.5)',
-      },
-    ],
-  });
+  const navigate = useNavigate();
+  
+  const [testsData, setTestsData] = useState({});
+  const [labels, setLabels] = useState([]);
+  const [data, setData] = useState({});
 
+  useEffect(() => { 
+    if (loadedOnce) return;
+    async function getTests() {
+      try {
+        let data = JSON.stringify({
+          operation: 'sql',
+          sql: `SELECT * FROM test_results.results`,
+        });
+      
+        let config = {
+          method: 'post',
+          url: process.env.REACT_APP_DB_URL,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: process.env.REACT_APP_DB_PSW, 
+          },
+          data: data,
+        };
+      
+        const response = await axios(config);
+        return response.data;
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    async function setAllData() {
+      const TESTS = await getTests();
+      setTestsData(TESTS);
+
+      try {
+        setLabels(TESTS.map(obj => obj.date));
+
+        setData({
+          labels,
+          datasets: [
+            {
+              fill: true,
+              label: 'KH',
+              data: testsData.map(obj => parseFloat(obj["KH"])),
+              borderColor: 'rgb(255, 0, 0)',
+              backgroundColor: 'rgba(255, 0, 0, 0.5)',
+            },
+          ],
+        });
+
+        loadedOnce = true;
+      } catch (error) {console.log(error)}
+
+    }
+    setAllData();
+    
+  });
+  
   const [title, setTitle] = useState("KH");
 
-
   const changeChartInfo = (type) => {
-    if (type === "none") return;
+    if (type === "none") return navigate('/newtest');
     var color = colors[type];
     setTitle(type);
     setData({
@@ -67,13 +89,32 @@ const App = () => {
           {
             fill: true,
             label: type,
-            data: testsData.map(obj => obj[type]),
+            data: testsData.map(obj => parseFloat(obj[type])),
             borderColor: `rgb(${color.r}, ${color.g}, ${color.b})`,
             backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, 0.5)`,
           },
         ],
     });
+
+    const buttons = document.querySelectorAll("#button");
+
+    buttons.forEach((button) => {
+      console.log();
+      if (button.classList.contains("clicked")) {
+        button.classList.remove("clicked"); 
+      }
+    });
+
+    buttons.forEach((button) => {
+      if (button.getAttribute('tipo') === type) {
+        button.classList.add("clicked");
+      }
+    })
+
   }
+
+
+  
 
   return (
     <div className={appStyle.body}>
@@ -86,7 +127,7 @@ const App = () => {
         <div className={appStyle.mainContainer}>
           <div className={appStyle.buttonsContainer}>
               <Button icon="+" text="Add" handleClick={changeChartInfo} type = "none"/>
-              <Button icon="chemical" handleClick={changeChartInfo} type = "KH" text="KH" />
+              <Button icon="chemical" handleClick={changeChartInfo} type = "KH" text="KH" defaultClicked={true}  />
               <Button icon="chemical" handleClick={changeChartInfo} type = "CA" text="Ca" />
               <Button icon="chemical" handleClick={changeChartInfo} type = "MG" text="Mg" />
               <Button icon="chemical" handleClick={changeChartInfo} type = "NO2" text="NO2" />
@@ -95,7 +136,7 @@ const App = () => {
           </div>
 
           <div className={appStyle.chart_container}>
-            <Chart data={data} setData={setData} />
+            {loadedOnce && <Chart data={data} setData={setData} />}
           </div>
         </div>
       </div>

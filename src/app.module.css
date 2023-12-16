@@ -7,9 +7,9 @@
 @media only screen and (max-width: 600px) {
     .chart_container {
         position: relative;
-        width: 75%;
+        width: 85%;
         height: 30vh !important;
-        padding: 2vh !important;
+        padding: 2vh 2vh 0 2vh !important;
         margin: auto !important;
         border-radius: 27px;
         box-shadow:  none !important;
@@ -21,8 +21,8 @@
 
 
         border-radius: 27px;
-    box-shadow:  22px 22px 53px #a4a4a4,
-                -22px -22px 53px #e9eefa !important;
+        box-shadow: 5px 5px 10px rgba(163, 177, 198, 0.5),
+        -5px -5px 10px rgba(204, 211, 228, 0.6) !important;
     
     }
 

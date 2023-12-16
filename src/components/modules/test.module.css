@@ -1,0 +1,124 @@
+body {
+    font-family: 'SemiBold';
+    background-color: #E2E8F6;
+}
+
+.background {
+    width: 87vw;
+    height: 75vh;
+
+    padding: 0 5vh 5vh 5vh;
+    background: #E2E8F6;
+
+    border-radius: 27px;
+    box-shadow: 5px 5px 10px rgba(163, 177, 198, 0.5),
+    -5px -5px 10px rgba(255, 255, 255, 0.6);
+}
+
+.title {
+    margin-left: 2vh;
+    margin-bottom: 0;
+}
+
+@media only screen and (max-width: 600px) {
+    .background {
+        width: 83vw !important;
+        height: 93vh !important;
+    
+        padding: 0 !important;
+        background: #E2E8F6;
+
+        margin: auto;
+    
+        border-radius: 27px;
+        box-shadow: 5px 5px 10px rgba(163, 177, 198, 0.5),
+        -5px -5px 10px rgba(255, 255, 255, 0.6);
+    }
+
+    input[type="text"], input[type="number"] {
+        font-family: 'SemiBold' !important;
+        color: rgb(143, 143, 143) !important;
+        background: #E2E8F6;
+        padding: 10px;
+        height: 30px;
+        border: none;
+        box-shadow: inset 5px 5px 10px rgba(163, 177, 198, 0.5),
+          inset -5px -5px 12px rgba(255, 255, 255, 0.8);
+        outline: none;
+        border-radius: 10px;
+      }
+
+      .inputContainer {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1vh;
+
+      }
+
+      .form > * {
+        margin-bottom: 1vh;
+      }
+
+      .buttonContainer {
+        width: 90%;
+        margin: auto;
+      }
+
+      .button {
+        width: 100%;
+        padding: 1.5vh 5vh;
+        background: #E2E8F6;
+        border: none;
+        border-radius: .5rem;
+        color: #444;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: .2rem;
+        text-align: center;
+        outline: none;
+        cursor: pointer;
+        box-shadow: -6px -6px 14px #d2ddf7,
+                    -6px -6px 10px rgba(255, 255, 255, .5),
+                    6px 6px 8px rgba(255, 255, 255, .075),
+                    6px 6px 10px rgba(0, 0, 0, .15);
+      }
+
+
+      .exitBTNContainer {
+        width: 13%;
+        margin-left: 2vh;
+        padding-top: 2vh;
+      }
+
+      .exitBTN {
+        width: 100%;
+        height: 5vh;
+        padding: 1.3vh 0;
+        background: #E2E8F6;
+        border: none;
+        border-radius: .5rem;
+        color: #444;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: .2rem;
+        text-align: center;
+        outline: none;
+        cursor: pointer;
+        box-shadow: -6px -6px 14px #d2ddf7,
+                    -6px -6px 10px rgba(255, 255, 255, .5),
+                    6px 6px 8px rgba(255, 255, 255, .075),
+                    6px 6px 10px rgba(0, 0, 0, .15);
+      }
+
+      .exitBTN img {
+        width: 40%;
+        height: auto;
+      }
+
+      .headerContainer {
+        display: flex;
+      }
+
+}

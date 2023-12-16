@@ -1,8 +1,8 @@
 @media only screen and (max-width: 600px) {
     .BUTTON {
         border-radius: 5px !important;
-        width: 9vw !important;
-        height: 4vh !important;
+        width: 10vw !important;
+        height: 4.5vh !important;
         text-align: center;
         background: #f1f2fe;
         box-shadow:  7px 7px 13px #b0b1b9,
@@ -19,6 +19,10 @@
     .svg {
         width:5vw !important;
         height:2.5vh !important;
+    }
+
+    .buttonElement h4 {
+        margin-left: 3vw !important;
     }
 }
 
@@ -39,6 +43,8 @@
 
 }
 
+
+
 .buttonElement {
     display: flex;
     align-items: center;
@@ -48,7 +54,6 @@
 }
 
 .buttonElement h4 {
-    margin-left: .5vw;
     font-size: 2.3vh;
     margin-left: 1vw;
 }
