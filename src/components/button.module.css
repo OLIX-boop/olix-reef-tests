@@ -1,0 +1,88 @@
+@media only screen and (max-width: 600px) {
+    .BUTTON {
+        border-radius: 5px !important;
+        width: 9vw !important;
+        height: 4vh !important;
+        text-align: center;
+        background: #f1f2fe;
+        box-shadow:  7px 7px 13px #b0b1b9,
+                     -7px -7px 13px #ffffff;
+    
+        outline-offset: -1vh;
+    
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+    
+    }
+
+    .svg {
+        width:5vw !important;
+        height:2.5vh !important;
+    }
+}
+
+.BUTTON {
+    border-radius: 15px;
+    width: 3.8vw;
+    height: 7vh;
+    text-align: center;
+    background: #f1f2fe;
+    box-shadow:  7px 7px 13px #b0b1b9,
+                 -7px -7px 13px #ffffff;
+
+    outline-offset: -1vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+
+}
+
+.buttonElement {
+    display: flex;
+    align-items: center;
+    margin:  0 1vw;
+    max-height: 10%;
+    margin-bottom: 2.8vh;
+}
+
+.buttonElement h4 {
+    margin-left: .5vw;
+    font-size: 2.3vh;
+    margin-left: 1vw;
+}
+
+.svg {
+    width:2vw;
+    height:2.5vh;
+}
+
+.KH {
+    filter: invert(20%) sepia(86%) saturate(6639%) hue-rotate(357deg) brightness(110%) contrast(118%);
+}
+
+.CA {
+    color: #ff9900;
+    filter: invert(67%) sepia(21%) saturate(7107%) hue-rotate(360deg) brightness(102%) contrast(109%);
+}
+
+.MG {
+    color: #ffe600;
+    filter: invert(81%) sepia(76%) saturate(3656%) hue-rotate(3deg) brightness(105%) contrast(105%);
+}
+
+.NO2 {
+    color: #00ff00;
+    filter: invert(67%) sepia(79%) saturate(4653%) hue-rotate(84deg) brightness(124%) contrast(119%);
+}
+
+.NO3 {
+    color: #00ffd5;
+    filter: invert(93%) sepia(92%) saturate(4272%) hue-rotate(88deg) brightness(99%) contrast(105%);
+}
+
+.PO4 {
+    color: #0000ff;
+    filter: invert(8%) sepia(100%) saturate(7473%) hue-rotate(247deg) brightness(99%) contrast(138%);
+}

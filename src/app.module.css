@@ -1,7 +1,138 @@
 .mainContainer {
     display: grid;
-    grid-template-columns: .3fr 1fr;
+    grid-template-columns: .2fr .8fr;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .chart_container {
+        position: relative;
+        width: 75%;
+        height: 30vh !important;
+        padding: 2vh !important;
+        margin: auto !important;
+        border-radius: 27px;
+        box-shadow:  none !important;
+    
+        display: flex;
+        justify-content: center;
+        margin-left: 3vw;
+        margin-bottom: 8vh !important;
+
+
+        border-radius: 27px;
+    box-shadow:  22px 22px 53px #a4a4a4,
+                -22px -22px 53px #e9eefa !important;
+    
+    }
+
+    .mainContainer {
+        display: flex;
+        flex-direction: column-reverse;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        margin: 0 auto;
+    }
+
+    .titleContainer {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .background {
+        width: 83vw !important;
+        height: 93vh !important;
+    
+        padding: 0 !important;
+        background: #E2E8F6;
+    
+        border-radius: 27px;
+        box-shadow:  22px 22px 53px #a4a4a4,
+                    -22px -22px 53px #ffffff;
+    }
+
+    .buttonsContainer {
+        border-radius: 27px;
+        background: #f1f2fe;
+        box-shadow:  7px 7px 13px #b0b1b9,
+                 -7px -7px 13px #ffffffa8;
+        height: 32vh !important;
+        width: 80% !important;
+        margin: auto !important;
+        display: grid;
+        grid-template-columns: 1fr 1fr !important;
+        padding-top: 5vh !important;
+        padding-left: 2vh !important;
+        grid-template-rows: 9vh 9vh 9vh 9vh;
+    }
+
 }
 
 .chart_container {
+    position: relative;
+    height: 60vh;
+    padding: 3vh;
+    border-radius: 27px;
+    box-shadow:  22px 22px 53px #a4a4a4,
+                -22px -22px 53px #e9eefa;
+
+    display: flex;
+    justify-content: center;
+    margin-left: 3vw;
+
+}
+
+body {
+    background-color: #E2E8F6;
+}
+
+
+.Title {
+    text-align: center;
+    color: #3d3d3d;
+}
+
+.background {
+    width: 87vw;
+    height: 75vh;
+
+    padding: 0 5vh 5vh 5vh;
+    background: #E2E8F6;
+
+    border-radius: 27px;
+    box-shadow:  22px 22px 53px #a4a4a4,
+                -22px -22px 53px #ffffff;
+}
+
+@font-face {
+    font-family: "SemiBold";
+    src: url("Exo-SemiBold.ttf");
+  }
+
+  
+.body {
+    width: 98vw;
+    height: 98vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'SemiBold';
+}
+
+.buttonsContainer {
+    border-radius: 27px;
+    padding-top: 2vh;
+    background: #f1f2fe;
+    box-shadow:  7px 7px 13px #b0b1b9,
+             -7px -7px 13px #ffffffa8;
+    height: 64vh;
+}
+
+
+.titleContainer {
+    display: grid;
+    grid-template-columns: .2fr .8fr;
+    margin: 0 auto;
 }
