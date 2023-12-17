@@ -23,6 +23,8 @@ const App = () => {
   const [labels, setLabels] = useState([]);
   const [data, setData] = useState({});
 
+  console.log(data)
+
   useEffect(() => { 
     if (loadedOnce) return;
     async function getTests() {
@@ -62,12 +64,14 @@ const App = () => {
             {
               fill: true,
               label: 'KH',
-              data: testsData.map(obj => parseFloat(obj["KH"])),
+              data: TESTS.map(obj => parseFloat(obj["KH"])),
               borderColor: 'rgb(255, 0, 0)',
               backgroundColor: 'rgba(255, 0, 0, 0.5)',
             },
           ],
         });
+
+        
 
         loadedOnce = true;
       } catch (error) {console.log(error)}
@@ -83,6 +87,7 @@ const App = () => {
     if (type === "none") return navigate('/newtest');
     var color = colors[type];
     setTitle(type);
+    setLabels(testsData.map(obj => obj.date));
     setData({
         labels,
         datasets: [
