@@ -66,7 +66,7 @@ const NewTests = () => {
 
       const response = await axios(config);
       console.log(response.data);
-      navigate('/');
+      navigate('olix-reef-tests/');
     } catch (error) {
       console.error(error);
     }

@@ -84,7 +84,7 @@ const App = () => {
   const [title, setTitle] = useState("KH");
 
   const changeChartInfo = (type) => {
-    if (type === "none") return navigate('/newtest');
+    if (type === "none") return navigate('olix-reef-tests/newtest');
     var color = colors[type];
     setTitle(type);
     setLabels(testsData.map(obj => obj.date));
