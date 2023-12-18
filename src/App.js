@@ -16,14 +16,16 @@ const colors = {
 };
 
 var loadedOnce = false;
+var newData = {}
+var testDataBU = {}
+var labelsBU = []
 const App = () => {
   const navigate = useNavigate();
   
-  const [testsData, setTestsData] = useState({});
+  const [testsData, setTestsData] = useState(testDataBU);
   const [labels, setLabels] = useState([]);
-  const [data, setData] = useState({});
+  const [data, setData] = useState(newData);
 
-  console.log(data)
 
   useEffect(() => { 
     if (loadedOnce) return;
@@ -54,12 +56,14 @@ const App = () => {
     async function setAllData() {
       const TESTS = await getTests();
       setTestsData(TESTS);
+      testDataBU = TESTS;
 
       try {
+        
         setLabels(TESTS.map(obj => obj.date));
-
-        setData({
-          labels,
+        const newLabels = TESTS.map(obj => obj.date)
+        const chartData = {
+          labels: newLabels,
           datasets: [
             {
               fill: true,
@@ -69,42 +73,46 @@ const App = () => {
               backgroundColor: 'rgba(255, 0, 0, 0.5)',
             },
           ],
-        });
-
-        
+        }
+        setData(chartData);
+        labelsBU = newLabels;
+        newData = chartData;
 
         loadedOnce = true;
       } catch (error) {console.log(error)}
-
+      
     }
     setAllData();
-    
   });
   
   const [title, setTitle] = useState("KH");
 
   const changeChartInfo = (type) => {
-    if (type === "none") return navigate('olix-reef-tests/newtest');
+    if (type === "none") return navigate('/newtest');
     var color = colors[type];
     setTitle(type);
-    setLabels(testsData.map(obj => obj.date));
-    setData({
-        labels,
-        datasets: [
-          {
-            fill: true,
-            label: type,
-            data: testsData.map(obj => parseFloat(obj[type])),
-            borderColor: `rgb(${color.r}, ${color.g}, ${color.b})`,
-            backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, 0.5)`,
-          },
-        ],
-    });
+
+    var ChartLabels = testsData.map(obj => obj.date)
+    labelsBU = ChartLabels ;
+    newData = {
+      labels: ChartLabels,
+      datasets: [
+        {
+          fill: true,
+          label: type,
+          data: testsData.map(obj => parseFloat(obj[type])),
+          borderColor: `rgb(${color.r}, ${color.g}, ${color.b})`,
+          backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, 0.5)`,
+        },
+      ],
+    };
+    setLabels(labelsBU);
+    setData(newData);
+
 
     const buttons = document.querySelectorAll("#button");
 
     buttons.forEach((button) => {
-      console.log();
       if (button.classList.contains("clicked")) {
         button.classList.remove("clicked"); 
       }
@@ -119,7 +127,7 @@ const App = () => {
   }
 
 
-  
+  console.log(data)
 
   return (
     <div className={appStyle.body}>
@@ -141,7 +149,7 @@ const App = () => {
           </div>
 
           <div className={appStyle.chart_container}>
-            {loadedOnce && <Chart data={data} setData={setData} />}
+            {loadedOnce && <Chart data={data} />}
           </div>
         </div>
       </div>

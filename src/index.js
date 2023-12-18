@@ -12,11 +12,11 @@ import Tests from './components/newTests.js';
 
 const router = createBrowserRouter([
   {
-    path: "/olix-reef-tests/",
+    path: "/",
     element: <App />,
   },
   {
-    path: "/olix-reef-tests/newtest",
+    path: "/newtest",
     element: <Tests />,
   },
 ]);

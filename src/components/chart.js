@@ -74,32 +74,33 @@ const options = {
 
 export default function Chart({data}) {
 
-
   const windowSize = useRef(window.innerWidth).current;
   if (windowSize <= 600) {
     defaults.font.size = 10;
   }
-
-
-  const [sorted_labels, sorted_values] = sortData(data.labels, data.datasets[0].data);
-  data.labels = sorted_labels;
-  data.datasets[0].data = sorted_values;
+    
+    const [sorted_labels, sorted_values] = sortData(data.labels, data.datasets[0].data);
+    data.labels = sorted_labels;
+    data.datasets[0].data = sorted_values;
+    
+    const min = Math.min(...sorted_values);
+    const max = Math.max(...sorted_values);
   
-  const min = Math.min(...sorted_values);
-  const max = Math.max(...sorted_values);
+    var newMin = scaleSettings[data.datasets[0].label].min === 0 ? 0 : scaleSettings[data.datasets[0].label].min + min;
+    var newMax = scaleSettings[data.datasets[0].label].max + max;
   
-  var newMin = scaleSettings[data.datasets[0].label].min === 0 ? 0 : scaleSettings[data.datasets[0].label].min + min;
-  var newMax = scaleSettings[data.datasets[0].label].max + max;
-  
-  options.scales = {
-    y: {
+    options.scales = {
+      y: {
       min: newMin,
       max: newMax,
     }, 
-    x: {},
-  }
+      x: {},
+    }
+
+  
   
 
-
-  return <Line options={options}  data={data}  redraw={true}/>;
+  return ( <>
+    {<Line options={options}  data={data}  redraw={true}/>}
+  </>);
 }

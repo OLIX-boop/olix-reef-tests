@@ -66,7 +66,7 @@ const NewTests = () => {
 
       const response = await axios(config);
       console.log(response.data);
-      navigate('olix-reef-tests/');
+      navigate('/');
     } catch (error) {
       console.error(error);
     }
@@ -78,7 +78,10 @@ const NewTests = () => {
         
         <div className={testStyle.headerContainer}>
           <div className={testStyle.exitBTNContainer}>
-            <button className={testStyle.exitBTN}><img src={Cross} alt="Exit" /></button>
+            <button onClick={() => {
+              localStorage.setItem('shouldReload', "true");
+              navigate('/');
+            }} className={testStyle.exitBTN}><img src={Cross} alt="Exit" /></button>
           </div>
 
           <h1 className={testStyle.title}>Test Results</h1>
