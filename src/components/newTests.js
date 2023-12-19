@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cross from './assets/cross.svg';
+import bcrypt from "bcryptjs-react";
 
 const monthsLabel = [
   "gennaio",
@@ -19,6 +20,8 @@ const monthsLabel = [
   "dicembre",
 ];
 
+const hash = '$2y$10$ED3S3OEB63PZnID3T.fvB.r2FuJKjJpCwVIrPzJRpomSKc6YHyP8G'; // password per fare la richiesta al database;
+
 const NewTests = () => {
   const navigate = useNavigate();
 
@@ -28,6 +31,7 @@ const NewTests = () => {
   const [NO2, setNO2] = useState(0);
   const [NO3, setNO3] = useState(0);
   const [PO4, setPO4] = useState(0);
+  const [password, setPassword] = useState("");
 
   const date = new Date();
   const day = date.getDate();
@@ -35,41 +39,48 @@ const NewTests = () => {
   const today = day + " " + month;
 
   const saveTests = async () => {
-    try {
-      const date = today;
-      var data = JSON.stringify({
-        operation: "insert",
-        schema: "test_results",
-        table: "results",
-        records: [
-          {
-            KH,
-            CA,
-            MG,
-            NO2,
-            NO3,
-            PO4,
-            date,
-          },
-        ],
-      });
-
-      var config = {
-        method: "POST",
-        url: process.env.REACT_APP_DB_URL,
-        headers: { 
-          "Content-Type": "application/json",
-          Authorization: process.env.REACT_APP_DB_PSW,
-        },
-        data: data,
+    bcrypt.compare(password, hash, async function(_, res) {
+      if (!res) {
+        alert("Password non corretta!");
+        return;
       };
-
-      const response = await axios(config);
-      console.log(response.data);
-      navigate('/');
-    } catch (error) {
-      console.error(error);
-    }
+      
+      try {
+        const date = today;
+        var data = JSON.stringify({
+          operation: "insert",
+          schema: "test_results",
+          table: "results",
+          records: [
+            {
+              KH,
+              CA,
+              MG,
+              NO2,
+              NO3,
+              PO4,
+              date,
+            },
+          ],
+        });
+  
+        var config = {
+          method: "POST",
+          url: process.env.REACT_APP_DB_URL,
+          headers: { 
+            "Content-Type": "application/json",
+            Authorization: process.env.REACT_APP_DB_PSW,
+          },
+          data: data,
+        };
+  
+        const response = await axios(config);
+        console.log(response.data);
+        navigate('/olix-reef-tests/');
+      } catch (error) {
+        console.error(error);
+      }
+    });
   }
 
   return (
@@ -78,10 +89,7 @@ const NewTests = () => {
         
         <div className={testStyle.headerContainer}>
           <div className={testStyle.exitBTNContainer}>
-            <button onClick={() => {
-              localStorage.setItem('shouldReload', "true");
-              navigate('/');
-            }} className={testStyle.exitBTN}><img src={Cross} alt="Exit" /></button>
+            <button onClick={() => {navigate('/olix-reef-tests/')}} className={testStyle.exitBTN}><img src={Cross} alt="Exit" /></button>
           </div>
 
           <h1 className={testStyle.title}>Test Results</h1>
@@ -139,28 +147,30 @@ const NewTests = () => {
             />
           </div>
 
-          <div className={testStyle.inputContainer}>
-            <label htmlFor="NO2">NO2</label>
-            <input
-              id="NO2"
-              type="text"
-              pattern="(\d*[\.,]?\d+|\d+[\.,]?\d*)"
-              inputMode="decimal"
-              required
-              onChange={(e) => setNO2(e.target.value)}
-            />
-          </div>
+          <div className={testStyle.doubleContainer}>
+            <div className={testStyle.inputContainer}>
+              <label htmlFor="NO2">NO2</label>
+              <input
+                id="NO2"
+                type="text"
+                pattern="(\d*[\.,]?\d+|\d+[\.,]?\d*)"
+                inputMode="decimal"
+                required
+                onChange={(e) => setNO2(e.target.value)}
+              />
+            </div>
 
-          <div className={testStyle.inputContainer}>
-            <label htmlFor="NO3">NO3</label>
-            <input
-              id="NO3"
-              type="text"
-              pattern="(\d*[\.,]?\d+|\d+[\.,]?\d*)"
-              inputMode="decimal"
-              required
-              onChange={(e) => setNO3(e.target.value)}
-            />
+            <div className={testStyle.inputContainer}>
+              <label htmlFor="NO3">NO3</label>
+              <input
+                id="NO3"
+                type="text"
+                pattern="(\d*[\.,]?\d+|\d+[\.,]?\d*)"
+                inputMode="decimal"
+                required
+                onChange={(e) => setNO3(e.target.value)}
+              />
+            </div>
           </div>
 
           <div className={testStyle.inputContainer}>
@@ -172,6 +182,16 @@ const NewTests = () => {
               inputMode="decimal"
               required
               onChange={(e) => setPO4(e.target.value)}
+            />
+          </div>
+
+          <div className={testStyle.inputContainer}>
+            <label htmlFor="Password">Password</label>
+            <input
+              id="Password"
+              type="password"
+              required
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 

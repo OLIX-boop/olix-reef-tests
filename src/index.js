@@ -12,11 +12,11 @@ import Tests from './components/newTests.js';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "olix-reef-tests/",
     element: <App />,
   },
   {
-    path: "/newtest",
+    path: "olix-reef-tests/newtest",
     element: <Tests />,
   },
 ]);
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider  router={router} />
   </React.StrictMode>
 );
 

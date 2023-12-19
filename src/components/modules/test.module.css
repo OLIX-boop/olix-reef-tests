@@ -57,6 +57,14 @@ body {
 
       }
 
+      .doubleContainer {
+        display: flex;
+      }
+
+      .doubleContainer .inputContainer {
+        width: 40%;
+      }
+
       .form > * {
         margin-bottom: 1vh;
       }
