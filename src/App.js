@@ -18,13 +18,12 @@ const colors = {
 var loadedOnce = false;
 var newData = {}
 var testDataBU = {}
-var labelsBU = []
 const App = () => {
   const navigate = useNavigate();
   
   const [testsData, setTestsData] = useState(testDataBU);
-  const [labels, setLabels] = useState([]);
   const [data, setData] = useState(newData);
+
 
 
   useEffect(() => { 
@@ -60,8 +59,7 @@ const App = () => {
 
       try {
         
-        setLabels(TESTS.map(obj => obj.date));
-        const newLabels = TESTS.map(obj => obj.date)
+        const newLabels = TESTS.map(obj => obj.date);
         const chartData = {
           labels: newLabels,
           datasets: [
@@ -75,7 +73,6 @@ const App = () => {
           ],
         }
         setData(chartData);
-        labelsBU = newLabels;
         newData = chartData;
 
         loadedOnce = true;
@@ -93,7 +90,6 @@ const App = () => {
     setTitle(type);
 
     var ChartLabels = testsData.map(obj => obj.date)
-    labelsBU = ChartLabels ;
     newData = {
       labels: ChartLabels,
       datasets: [
@@ -106,7 +102,6 @@ const App = () => {
         },
       ],
     };
-    setLabels(labelsBU);
     setData(newData);
 
 

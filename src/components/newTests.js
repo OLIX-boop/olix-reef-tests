@@ -95,10 +95,6 @@ const NewTests = () => {
           <h1 className={testStyle.title}>Test Results</h1>
         </div>
 
-
-
-        
-
         <form
           onSubmit={(e) => {
             e.preventDefault();

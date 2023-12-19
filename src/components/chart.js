@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import {Chart as ChartJS,CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip,Filler,Legend,defaults,} from "chart.js";
 import { Line } from "react-chartjs-2";
-ChartJS.register(CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip,Filler,Legend);
+import Zoom from 'chartjs-plugin-zoom';
+ChartJS.register(CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip,Filler,Legend, Zoom);
 
 const monthsLabel = {
   gennaio: 0,
@@ -28,9 +29,19 @@ const options = {
     title: {
       display: false,
     },
+    zoom: {
+      zoom: {
+        wheel: {
+          enabled: true
+        },
+        drag: {
+          enabled: false
+        },
+        mode: "x",
+      }
+    }
   },
 };
-
 function sortData(dates, values) {
   var list = [];
   for (var j = 0; j < dates.length; j++) {
@@ -68,6 +79,8 @@ export default function Chart({ data }) {
   const windowSize = useRef(window.innerWidth).current;
   if (windowSize <= 600) defaults.font.size = 10;
 
+  console.log(defaults)
+
   const [sorted_labels, sorted_values] = sortData(
     data.labels,
     data.datasets[0].data
@@ -78,10 +91,8 @@ export default function Chart({ data }) {
   const min = Math.min(...sorted_values);
   const max = Math.max(...sorted_values);
 
-  var newMin =
-    scaleSettings[data.datasets[0].label].min === 0
-      ? 0
-      : scaleSettings[data.datasets[0].label].min + min;
+
+  var newMin = scaleSettings[data.datasets[0].label].min === 0 ? 0 : scaleSettings[data.datasets[0].label].min + min;
   var newMax = scaleSettings[data.datasets[0].label].max + max;
 
   options.scales = {
