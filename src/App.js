@@ -4,7 +4,7 @@ import Button from "./components/button.js";
 import appStyle from "./app.module.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import GetDBInfo from './database';
 
 const colors = {
   KH: { r: 255, g: 0, b: 0 },
@@ -34,13 +34,15 @@ const App = () => {
           operation: 'sql',
           sql: `SELECT * FROM test_results.results`,
         });
+
+        const info = GetDBInfo();
       
         let config = {
           method: 'post',
-          url: process.env.REACT_APP_DB_URL,
+          url: atob(info[1]),
           headers: {
             'Content-Type': 'application/json',
-            Authorization: process.env.REACT_APP_DB_PSW, 
+            Authorization: atob(info[0]), 
           },
           data: data,
         };
@@ -120,9 +122,6 @@ const App = () => {
     })
 
   }
-
-
-  console.log(data)
 
   return (
     <div className={appStyle.body}>

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cross from './assets/cross.svg';
 import bcrypt from "bcryptjs-react";
+import GetDBInfo from '../database';
 
 const monthsLabel = [
   "gennaio",
@@ -21,6 +22,7 @@ const monthsLabel = [
 ];
 
 const hash = '$2y$10$ED3S3OEB63PZnID3T.fvB.r2FuJKjJpCwVIrPzJRpomSKc6YHyP8G'; // password per fare la richiesta al database;
+
 
 const NewTests = () => {
   const navigate = useNavigate();
@@ -63,13 +65,15 @@ const NewTests = () => {
             },
           ],
         });
+
+        const info = GetDBInfo();
   
         var config = {
           method: "POST",
-          url: process.env.REACT_APP_DB_URL,
+          url: atob(info[1]),
           headers: { 
             "Content-Type": "application/json",
-            Authorization: process.env.REACT_APP_DB_PSW,
+            Authorization: atob(info[0]),
           },
           data: data,
         };
