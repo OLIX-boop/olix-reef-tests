@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/olix-reef-tests/static/css/main.42cd1f25.css",
-    "main.js": "/olix-reef-tests/static/js/main.7bc902d1.js",
+    "main.css": "/olix-reef-tests/static/css/main.cc27af5f.css",
+    "main.js": "/olix-reef-tests/static/js/main.04c0987a.js",
     "static/js/787.ff192ca6.chunk.js": "/olix-reef-tests/static/js/787.ff192ca6.chunk.js",
     "static/media/Exo-SemiBold.ttf": "/olix-reef-tests/static/media/Exo-SemiBold.0ea5e1c1a8270ff6dfd5.ttf",
     "static/media/chemical.svg": "/olix-reef-tests/static/media/chemical.7a72e03ef5144ce759ef8dfd832b5915.svg",
     "index.html": "/olix-reef-tests/index.html",
     "static/media/cross.svg": "/olix-reef-tests/static/media/cross.a6b9ffc5deeeb58064e76e9c4fe167d5.svg",
-    "main.42cd1f25.css.map": "/olix-reef-tests/static/css/main.42cd1f25.css.map",
-    "main.7bc902d1.js.map": "/olix-reef-tests/static/js/main.7bc902d1.js.map",
+    "main.cc27af5f.css.map": "/olix-reef-tests/static/css/main.cc27af5f.css.map",
+    "main.04c0987a.js.map": "/olix-reef-tests/static/js/main.04c0987a.js.map",
     "787.ff192ca6.chunk.js.map": "/olix-reef-tests/static/js/787.ff192ca6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.42cd1f25.css",
-    "static/js/main.7bc902d1.js"
+    "static/css/main.cc27af5f.css",
+    "static/js/main.04c0987a.js"
   ]
 }
