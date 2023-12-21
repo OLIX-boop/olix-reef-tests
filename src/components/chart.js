@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import {Chart as ChartJS,CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip,Filler,Legend,defaults,} from "chart.js";
 import { Line } from "react-chartjs-2";
 import Zoom from 'chartjs-plugin-zoom';
+import 'hammerjs';
 ChartJS.register(CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip,Filler,Legend, Zoom);
 
 const monthsLabel = {
