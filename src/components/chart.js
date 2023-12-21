@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import {Chart as ChartJS,CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip,Filler,Legend,defaults,} from "chart.js";
+import {Chart as ChartJS,CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip,Filler,Legend,defaults} from "chart.js";
 import { Line } from "react-chartjs-2";
 import Zoom from 'chartjs-plugin-zoom';
 import 'hammerjs';
@@ -33,16 +33,19 @@ const options = {
     zoom: {
       zoom: {
         wheel: {
-          enabled: true
+          enabled: true,
+          speed: 0.1
         },
         drag: {
           enabled: false
         },
+        pinch: { enabled: true },
         mode: "x",
-      }
+      },
     }
   },
 };
+
 function sortData(dates, values) {
   var list = [];
   for (var j = 0; j < dates.length; j++) {
@@ -80,8 +83,6 @@ export default function Chart({ data }) {
   const windowSize = useRef(window.innerWidth).current;
   if (windowSize <= 600) defaults.font.size = 10;
 
-  console.log(defaults)
-
   const [sorted_labels, sorted_values] = sortData(
     data.labels,
     data.datasets[0].data
@@ -103,6 +104,7 @@ export default function Chart({ data }) {
     },
     x: {},
   };
+
 
   return <Line options={options} data={data} redraw={true} />;
 }
