@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/olix-reef-tests/static/css/main.367cf0c9.css",
-    "main.js": "/olix-reef-tests/static/js/main.fb40c41e.js",
+    "main.js": "/olix-reef-tests/static/js/main.8064df66.js",
     "static/media/Exo-SemiBold.ttf": "/olix-reef-tests/static/media/Exo-SemiBold.0ea5e1c1a8270ff6dfd5.ttf",
     "static/media/chemical.svg": "/olix-reef-tests/static/media/chemical.7a72e03ef5144ce759ef8dfd832b5915.svg",
     "index.html": "/olix-reef-tests/index.html",
     "static/media/cross.svg": "/olix-reef-tests/static/media/cross.a6b9ffc5deeeb58064e76e9c4fe167d5.svg",
     "main.367cf0c9.css.map": "/olix-reef-tests/static/css/main.367cf0c9.css.map",
-    "main.fb40c41e.js.map": "/olix-reef-tests/static/js/main.fb40c41e.js.map"
+    "main.8064df66.js.map": "/olix-reef-tests/static/js/main.8064df66.js.map"
   },
   "entrypoints": [
     "static/css/main.367cf0c9.css",
-    "static/js/main.fb40c41e.js"
+    "static/js/main.8064df66.js"
   ]
 }
