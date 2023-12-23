@@ -1,8 +1,77 @@
+@font-face {
+    font-family: "SemiBold";
+    src: url("Exo-SemiBold.ttf");
+}
+
 .mainContainer {
     display: grid;
     grid-template-columns: .2fr .8fr;
     margin: 0 auto;
 }
+
+.chart_container {
+    position: relative;
+    height: 60vh;
+    padding: 3vh;
+    border-radius: 27px;
+    box-shadow:  22px 22px 53px #a4a4a4,
+                -22px -22px 53px #e9eefa;
+
+    display: flex;
+    justify-content: center;
+    margin-left: 3vw;
+
+}
+
+body {
+    background-color: #E2E8F6;
+}
+
+
+.Title {
+    text-align: center;
+    color: #3d3d3d;
+}
+
+.background {
+    width: 87vw;
+    height: 75vh;
+
+    padding: 0 5vh 5vh 5vh;
+    background: #E2E8F6;
+
+    border-radius: 27px;
+    box-shadow:  22px 22px 53px #a4a4a4,
+                -22px -22px 53px #ffffff;
+}
+
+  
+.body {
+    width: 98vw;
+    height: 98vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'SemiBold';
+}
+
+.buttonsContainer {
+    border-radius: 27px;
+    padding-top: 2vh;
+    background: #f1f2fe;
+    box-shadow:  7px 7px 13px #b0b1b9,
+             -7px -7px 13px #ffffffa8;
+    height: 64vh;
+}
+
+
+.titleContainer {
+    display: grid;
+    grid-template-columns: .2fr .8fr;
+    margin: 0 auto;
+}
+
 
 @media only screen and (max-width: 600px) {
     .chart_container {
@@ -63,70 +132,7 @@
 
 }
 
-.chart_container {
-    position: relative;
-    height: 60vh;
-    padding: 3vh;
-    border-radius: 27px;
-    box-shadow:  22px 22px 53px #a4a4a4,
-                -22px -22px 53px #e9eefa;
 
-    display: flex;
-    justify-content: center;
-    margin-left: 3vw;
-
-}
-
-body {
-    background-color: #E2E8F6;
-}
-
-
-.Title {
-    text-align: center;
-    color: #3d3d3d;
-}
-
-.background {
-    width: 87vw;
-    height: 75vh;
-
-    padding: 0 5vh 5vh 5vh;
-    background: #E2E8F6;
-
-    border-radius: 27px;
-    box-shadow:  22px 22px 53px #a4a4a4,
-                -22px -22px 53px #ffffff;
-}
-
-@font-face {
-    font-family: "SemiBold";
-    src: url("Exo-SemiBold.ttf");
-  }
-
-  
-.body {
-    width: 98vw;
-    height: 98vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-family: 'SemiBold';
-}
-
-.buttonsContainer {
-    border-radius: 27px;
-    padding-top: 2vh;
-    background: #f1f2fe;
-    box-shadow:  7px 7px 13px #b0b1b9,
-             -7px -7px 13px #ffffffa8;
-    height: 64vh;
-}
-
-
-.titleContainer {
-    display: grid;
-    grid-template-columns: .2fr .8fr;
-    margin: 0 auto;
+.buttonsContainer > * {
+    user-select: none;
 }

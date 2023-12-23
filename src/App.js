@@ -23,9 +23,8 @@ const App = () => {
   
   const [testsData, setTestsData] = useState(testDataBU);
   const [data, setData] = useState(newData);
-
-
-
+  const [title, setTitle] = useState("KH");
+  
   useEffect(() => { 
     if (loadedOnce) return;
     async function getTests() {
@@ -49,42 +48,33 @@ const App = () => {
       
         const response = await axios(config);
         return response.data;
-      } catch (error) {
-        console.log(error)
-      }
+      } catch (error) {console.log(error)};
     }
 
     async function setAllData() {
-      const TESTS = await getTests();
-      setTestsData(TESTS);
-      testDataBU = TESTS;
+      testDataBU = await getTests();
+      setTestsData(testDataBU);
 
       try {
-        
-        const newLabels = TESTS.map(obj => obj.date);
-        const chartData = {
-          labels: newLabels,
+        newData = {
+          labels: testDataBU.map(obj => obj.date),
           datasets: [
             {
               fill: true,
               label: 'KH',
-              data: TESTS.map(obj => parseFloat(obj["KH"])),
+              data: testDataBU.map(obj => parseFloat(obj["KH"])),
               borderColor: 'rgb(255, 0, 0)',
               backgroundColor: 'rgba(255, 0, 0, 0.5)',
             },
           ],
         }
-        setData(chartData);
-        newData = chartData;
-
+        setData(newData);
         loadedOnce = true;
       } catch (error) {console.log(error)}
-      
     }
     setAllData();
   });
   
-  const [title, setTitle] = useState("KH");
 
   const changeChartInfo = (type) => {
     if (type === "none") return navigate('/olix-reef-tests/newtest');
@@ -105,22 +95,6 @@ const App = () => {
       ],
     };
     setData(newData);
-
-
-    const buttons = document.querySelectorAll("#button");
-
-    buttons.forEach((button) => {
-      if (button.classList.contains("clicked")) {
-        button.classList.remove("clicked"); 
-      }
-    });
-
-    buttons.forEach((button) => {
-      if (button.getAttribute('tipo') === type) {
-        button.classList.add("clicked");
-      }
-    })
-
   }
 
   return (

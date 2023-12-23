@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
-
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider} from "react-router-dom";
 
 import App from './App';
 import Tests from './components/newTests.js';
@@ -27,5 +22,3 @@ root.render(
     <RouterProvider  router={router} />
   </React.StrictMode>
 );
-
-reportWebVitals();
