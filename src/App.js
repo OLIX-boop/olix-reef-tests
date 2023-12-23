@@ -46,8 +46,20 @@ const App = () => {
           data: data,
         };
       
-        const response = await axios(config);
-        return response.data;
+        var response = await axios(config);
+
+        response = response.data.map((e) => {
+          var newElement = e;
+          if (typeof e.KH === "string") newElement.KH=e.KH.replace(',', '.');
+          if (typeof e.CA === "string") newElement.CA=e.CA.replace(',', '.');
+          if (typeof e.MG === "string") newElement.MG=e.MG.replace(',', '.');
+          if (typeof e.NO2 === "string") newElement.NO2=e.NO2.replace(',', '.');
+          if (typeof e.NO3 === "string") newElement.NO3=e.NO3.replace(',', '.');
+          if (typeof e.PO4 === "string") newElement.PO4=e.PO4.replace(',', '.');
+          return newElement;
+        });
+
+        return response;
       } catch (error) {console.log(error)};
     }
 

@@ -57,9 +57,9 @@ function sortData(dates, values) {
     b = b.date.split(" ");
     a[1] = monthsLabel[a[1]];
     b[1] = monthsLabel[b[1]];
-
-    if (a[1] === b[1]) return a[0] > b[0] ? 1 : -1;
-    else return a[1] > b[1] ? 1 : -1;
+    
+    if (a[1] === b[1]) return a[0] - b[0];
+    else return a[1] - b[1];
   });
 
   return [list.map((item) => item.date), list.map((item) => item.value)];
