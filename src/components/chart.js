@@ -42,6 +42,10 @@ const options = {
         pinch: { enabled: true },
         mode: "x",
       },
+      pan : {
+        enabled: true,
+        mode: "x"
+      },
     }
   },
 };
