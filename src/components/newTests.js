@@ -1,10 +1,11 @@
-import testStyle from "./modules/test.module.css";
-import React, { useState } from "react";
 import axios from 'axios';
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import Cross from './assets/cross.svg';
 import bcrypt from "bcryptjs-react";
+
 import GetDBInfo from '../database';
+import Cross from './assets/cross.svg';
+import testStyle from "./modules/test.module.css";
 
 const monthsLabel = [
   "gennaio",
@@ -49,6 +50,7 @@ const NewTests = () => {
       
       try {
         const date = today;
+        const year = date.getFullYear();
         var data = JSON.stringify({
           operation: "insert",
           schema: "test_results",
@@ -62,6 +64,7 @@ const NewTests = () => {
               NO3,
               PO4,
               date,
+              year
             },
           ],
         });
