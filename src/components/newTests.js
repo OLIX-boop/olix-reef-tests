@@ -50,7 +50,7 @@ const NewTests = () => {
       
       try {
         const date = today;
-        const year = date.getFullYear();
+        const year = new Date().getFullYear();
         var data = JSON.stringify({
           operation: "insert",
           schema: "test_results",
