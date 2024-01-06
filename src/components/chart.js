@@ -5,21 +5,6 @@ import Zoom from 'chartjs-plugin-zoom';
 import 'hammerjs';
 ChartJS.register(CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip,Filler,Legend, Zoom);
 
-const monthsLabel = {
-  gennaio: 0,
-  febbraio: 1,
-  marzo: 2,
-  aprile: 3,
-  maggio: 4,
-  giugno: 5,
-  luglio: 6,
-  agosto: 7,
-  settembre: 8,
-  ottobre: 9,
-  novembre: 10,
-  dicembre: 11,
-};
-
 const scaleSettings = {
   KH: { min: -0.5, max: 0.5 },
   CA: { min: -30, max: 20 },
@@ -59,20 +44,19 @@ const ChartOptions = {
   },
 };
 
-function sortData(dates, values) {
+function sortData(dates, values, rawData) {
   var list = [];
   for (var j = 0; j < dates.length; j++) { // merge the two parameters
     list.push({ date: dates[j], value: values[j] });
   }
 
   list.sort((a, b) => { // sort by date
-    a = a.date.split(" ");
-    b = b.date.split(" ");
-    a[1] = monthsLabel[a[1]];
-    b[1] = monthsLabel[b[1]];
-    
-    if (a[1] === b[1]) return a[0] - b[0];
-    else return a[1] - b[1];
+    var indexA = list.indexOf(a);
+    var indexB = list.indexOf(b);
+
+    const timestampA = new Date(rawData[indexA].__createdtime__).getTime();
+    const timestampB = new Date(rawData[indexB].__createdtime__).getTime();
+    return timestampB < timestampA ? -1 : timestampB > timestampA ? 1 : 0;
   });
 
   return [list.map((item) => item.date), list.map((item) => item.value)]; // devide dates and values
@@ -96,18 +80,16 @@ const Chart = ({ data, rawData }) => {
   const windowSize = useRef(window.innerWidth).current;
   const chartRef = useRef(null);
   if (windowSize <= 600) defaults.font.size = 10;
-
-  
-  
-  rawData = sortRawData(rawData); // syncronizes rawdata with the sorted data of the chart
   
   const [sorted_labels, sorted_values] = sortData(
     data.labels,
     data.datasets[0].data,
+    rawData
     );
     data.labels = sorted_labels;
     data.datasets[0].data = sorted_values;
     
+    rawData = sortRawData(rawData); // syncronizes rawdata with the sorted data of the chart
     const scale = scaleSettings[data.datasets[0].label];
     const scaleMinValue = scale.min === 0 ? 0 : scale.min + Math.min(...sorted_values);
     const scaleMaxValue = scale.max + Math.max(...sorted_values);
@@ -119,7 +101,7 @@ const Chart = ({ data, rawData }) => {
       },
     };
     
-  const [range, setRange] = useState({min: 0, max: sorted_labels.length-1})
+  const [range] = useState({min: 0, max: sorted_labels.length-1});
 
   function SetZoom(key) {
     const chart = chartRef.current;
@@ -136,8 +118,8 @@ const Chart = ({ data, rawData }) => {
 
     switch (key) {
       case 'month': 
-        newRange = {min: maxLength-lastMonths.length+1, max: maxLength};
-        chart.zoomScale('x', newRange, 'default'); // why +1? Because we have to consider that we are counting from the last position of the Y axis, so we have to exclude the last value
+        newRange = {min: maxLength-lastMonths.length, max: maxLength};
+        chart.zoomScale('x', newRange, 'default');
         break;
       case 'year':
         newRange = {min: maxLength-currentYearElements, max: maxLength};
@@ -156,17 +138,17 @@ const Chart = ({ data, rawData }) => {
     const RangeDistance = Math.floor((range.max - range.min) / 2);
     var newRange = { min: 0, max: sorted_labels.length-1}; 
 
-    if (position-RangeDistance <= 0) newRange.max=RangeDistance*2;
-    else if (position+RangeDistance >= sorted_labels.length-1) newRange.min= (sorted_labels.length-1)-(RangeDistance*2);
+    if (position-RangeDistance <= 0) newRange.max=RangeDistance*2+1;
+    else if (position+RangeDistance >= sorted_labels.length-1) newRange.min= (sorted_labels.length-1)-(RangeDistance*2)-1;
     else {
       newRange.max= position+RangeDistance;
-      newRange.min= position-RangeDistance;
+      newRange.min= position-RangeDistance-1;
     }
     
     return newRange;
   }
 
-  function changePosition(e) { // da fixare
+  function changePosition(e) {
     const position = parseInt(e.target.value);
     const newRange = calculateRange(position);
 
