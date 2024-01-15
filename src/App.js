@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState,useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
+
 import GetDBInfo from './database';
 import Chart from "./components/chart.js";
 import Button from "./components/button.js";
