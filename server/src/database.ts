@@ -8,9 +8,9 @@ class DATABASE {
         this.connection =  mysql.createConnection(DBINFO);
     }
 
-    connect = () => this.connection.connect();
+    connect = ():void => this.connection.connect();
   
-    sendQuery = (command:string) => {
+    sendQuery = (command:string):Promise<object> => {
         return new Promise((resolve) => {
             this.connection.query(command, (err, result) => {
                 if (err) return console.log(err);
@@ -19,8 +19,8 @@ class DATABASE {
         });
     };
 
-    fetchData = () => {
-        const query = "SELECT * FROM results";
+    fetchData = ():Promise<object> => {
+        const query:string = "SELECT * FROM results";
         return new Promise((resolve) => {
             this.connection.query(query, (err, result) => {
                 if (err) return console.log(err);
@@ -35,7 +35,7 @@ const user:string = "dev";
 const password:string = "260207";
 const database:string = "olix-tests";
 
-const DB = new DATABASE({
+const DB:DATABASE = new DATABASE({
   host,
   user,
   password,

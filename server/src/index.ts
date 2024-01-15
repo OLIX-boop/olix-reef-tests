@@ -5,7 +5,7 @@ const app = express();
 const port:number = 4000;
 
 app.get('/', async (req, res) => {
-    const result = await DB.sendQuery("SELECT * FROM results");
+    const result = await DB.fetchData();
     res.send(result);
 });
 
