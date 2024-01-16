@@ -51,28 +51,19 @@ function sortData(dates, values, rawData) {
     list.push({ date: dates[j], value: values[j] });
   }
 
-  // DA FIXARE
   list.sort((a, b) => { // sort by date
-    var indexA = list.indexOf(a);
-    var indexB = list.indexOf(b);
+    const indexA = list.indexOf(a);
+    const indexB = list.indexOf(b);
 
     const timestampA = rawData[indexA].__createdtime__;
     const timestampB = rawData[indexB].__createdtime__;
     return timestampB < timestampA ? -1 : timestampB > timestampA ? 1 : 0;
   });
-  console.log(list)
 
   return [list.map((item) => item.date), list.map((item) => item.value)]; // devide dates and values
 }
 
-function sortRawData(data) {
-  const list = data;
-  list.sort((a, b) => {
-    return a.__createdtime__ - b.__createdtime__;
-  });
-
-  return list; // devide dates and values
-}
+const sortRawData = (data) => data.sort((a, b) => new Date(a.__createdtime__) - new Date(b.__createdtime__));
 
 defaults.interaction = {
   mode: 'index',
@@ -88,7 +79,8 @@ const Chart = ({ data, rawData }) => {
     data.labels,
     data.datasets[0].data,
     rawData
-    );
+  );
+  
     data.labels = sorted_labels;
     data.datasets[0].data = sorted_values;
     
