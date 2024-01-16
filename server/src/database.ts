@@ -30,7 +30,7 @@ class DATABASE {
     };
 }
 
-const host:string = "151.30.105.67";
+const host:string = "151.30.143.166";
 const user:string = "dev";
 const password:string = "260207";
 const database:string = "olix-tests";

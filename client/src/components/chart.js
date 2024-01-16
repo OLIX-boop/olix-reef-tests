@@ -161,7 +161,6 @@ const Chart = ({ data, rawData }) => {
         <button onClick={() => {SetZoom('year')}}>ANNO</button>
         <input min={0} step={1} max={sorted_labels.length-1} defaultValue={sorted_labels.length-1} onChange={(e) => {changePosition(e)}} type="range" name="position" id="position" />
       </div>
-
     </>
   );
 }
