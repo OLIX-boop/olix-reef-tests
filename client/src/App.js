@@ -30,7 +30,7 @@ const filterTests = (response) => response.map((e) => {
     return newElement;
   })
 
-const fetchTest = async () => axios.get('http://localhost:4000/')
+const fetchTest = async () => axios.get('http://151.30.143.166:1080/')
                               .then(response => filterTests(response.data));
 
 const App = () => {
