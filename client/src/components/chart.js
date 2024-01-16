@@ -44,20 +44,23 @@ const ChartOptions = {
   },
 };
 
+
 function sortData(dates, values, rawData) {
   var list = [];
   for (var j = 0; j < dates.length; j++) { // merge the two parameters
     list.push({ date: dates[j], value: values[j] });
   }
 
+  // DA FIXARE
   list.sort((a, b) => { // sort by date
     var indexA = list.indexOf(a);
     var indexB = list.indexOf(b);
 
-    const timestampA = new Date(rawData[indexA].__createdtime__).getTime();
-    const timestampB = new Date(rawData[indexB].__createdtime__).getTime();
+    const timestampA = rawData[indexA].__createdtime__;
+    const timestampB = rawData[indexB].__createdtime__;
     return timestampB < timestampA ? -1 : timestampB > timestampA ? 1 : 0;
   });
+  console.log(list)
 
   return [list.map((item) => item.date), list.map((item) => item.value)]; // devide dates and values
 }

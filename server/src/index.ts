@@ -1,7 +1,8 @@
 import express from 'express';
+import cors from 'cors';
 import DB from './database';
 
-const app = express();
+const app = express().use(cors());
 const port:number = 4000;
 
 app.get('/', async (req, res) => {

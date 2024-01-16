@@ -1,9 +1,7 @@
 import axios from 'axios';
 import React, { useState,useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-
-import GetDBInfo from './database';
 import Chart from "./components/chart.js";
 import Button from "./components/button.js";
 import appStyle from "./app.module.css";
@@ -20,55 +18,34 @@ const colors = {
 var loadedOnce = false;
 var CurrentData = {}
 var TestResult = {}
+
+const filterTests = (response) => response.map((e) => {
+    var newElement = e;
+    if (typeof e.KH === "string") newElement.KH=e.KH.replace(',', '.');
+    if (typeof e.CA === "string") newElement.CA=e.CA.replace(',', '.');
+    if (typeof e.MG === "string") newElement.MG=e.MG.replace(',', '.');
+    if (typeof e.NO2 === "string") newElement.NO2=e.NO2.replace(',', '.');
+    if (typeof e.NO3 === "string") newElement.NO3=e.NO3.replace(',', '.');
+    if (typeof e.PO4 === "string") newElement.PO4=e.PO4.replace(',', '.');
+    return newElement;
+  })
+
+const fetchTest = async () => axios.get('http://localhost:4000/')
+                              .then(response => filterTests(response.data));
+
 const App = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   
   const [testsData, setTestsData] = useState(TestResult);
   const [data, setData] = useState(CurrentData);
   const [title, setTitle] = useState("KH");
   
-  useEffect(() => { 
-    if (loadedOnce) return;
-
-    function filterTests(response) {
-      return response.data.map((e) => {
-        var newElement = e;
-        if (typeof e.KH === "string") newElement.KH=e.KH.replace(',', '.');
-        if (typeof e.CA === "string") newElement.CA=e.CA.replace(',', '.');
-        if (typeof e.MG === "string") newElement.MG=e.MG.replace(',', '.');
-        if (typeof e.NO2 === "string") newElement.NO2=e.NO2.replace(',', '.');
-        if (typeof e.NO3 === "string") newElement.NO3=e.NO3.replace(',', '.');
-        if (typeof e.PO4 === "string") newElement.PO4=e.PO4.replace(',', '.');
-        return newElement;
-      })
-    }
-
-    async function getTests() {
-      try {
-        const dbInfo = GetDBInfo();
-        const query = JSON.stringify({
-          operation: 'sql',
-          sql: `SELECT * FROM test_results.results`,
-        });
-      
-        const config = {
-          method: 'post',
-          url: atob(dbInfo[1]),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: atob(dbInfo[0]), 
-          },
-          data: query,
-        };
-      
-        const response = filterTests(await axios(config));
-
-        return response;
-      } catch (error) {console.log(error)};
-    }
+  useEffect(() => {
+    if (loadedOnce && !location.state?.reload) return;
 
     async function setAllData() {
-      TestResult = await getTests();
+      TestResult = await fetchTest();
       setTestsData(TestResult);
 
       try {

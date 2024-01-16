@@ -83,7 +83,9 @@ const NewTests = () => {
   
         const response = await axios(config);
         console.log(response.data);
-        navigate('/olix-reef-tests/');
+        navigate('/olix-reef-tests/', {state: {
+          reload: true,
+        }});
       } catch (error) {
         console.error(error);
       }
