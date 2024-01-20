@@ -1,5 +1,7 @@
 import mysql, { Connection } from 'mysql';
 
+
+
 class DATABASE {
 
     connection:Connection;
@@ -29,11 +31,8 @@ class DATABASE {
         });
     };
 
-    insertNewTest = ():Promise<object> => {
+    insertNewTest = (params:object):Promise<object> => {
         const query = `INSERT INTO results SET ?`;
-        const params = {
-            edited : false
-        };
         return new Promise((resolve) => {
             this.connection.query(query, params, (err, result) => {
                 if (err) return console.log(err);
@@ -60,6 +59,12 @@ DB.connect(); // called by default so that you don't have to :)
 
 /**
  * const result = await DB.fetchData();
+ * @returns {Array} result
+ */
+
+/**
+ * const result = await DB.insertNewTest();
+ * @param {Object} params
  * @returns {Array} result
  */
 

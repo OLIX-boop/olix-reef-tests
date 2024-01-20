@@ -42,7 +42,8 @@ const App = () => {
   const [title, setTitle] = useState("KH");
   
   useEffect(() => {
-    if (loadedOnce && !location.state?.reload) return;
+    if (location.state?.reload) loadedOnce=true;
+    if (loadedOnce) return;
 
     async function setAllData() {
       TestResult = await fetchTest();

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import bcrypt from "bcryptjs-react";
 
-import GetDBInfo from '../database';
 import Cross from './assets/cross.svg';
 import testStyle from "./modules/test.module.css";
 
@@ -24,7 +23,7 @@ const monthsLabel = [
 
 const hash = '$2y$10$ED3S3OEB63PZnID3T.fvB.r2FuJKjJpCwVIrPzJRpomSKc6YHyP8G'; // password per fare la richiesta al database;
 
-const insertNewTest = async (data) => axios.post('http://151.30.143.166:1080/', data)
+const insertNewTest = async (data) => axios.post('http://151.30.143.166:1080/newtest', data)
                               .then(response => "");
 
 
@@ -63,7 +62,7 @@ const NewTests = () => {
           date,
         }
   
-        const response = insertNewTest(newResult);
+        const response = await insertNewTest(newResult);
         console.log(response);
         navigate('/olix-reef-tests/', {state: {
           reload: true,
