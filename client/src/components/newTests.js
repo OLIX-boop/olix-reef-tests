@@ -24,6 +24,9 @@ const monthsLabel = [
 
 const hash = '$2y$10$ED3S3OEB63PZnID3T.fvB.r2FuJKjJpCwVIrPzJRpomSKc6YHyP8G'; // password per fare la richiesta al database;
 
+const insertNewTest = async (data) => axios.post('http://151.30.143.166:1080/', data)
+                              .then(response => "");
+
 
 const NewTests = () => {
   const navigate = useNavigate();
@@ -50,39 +53,18 @@ const NewTests = () => {
       
       try {
         const date = today;
-        const year = new Date().getFullYear();
-        var data = JSON.stringify({
-          operation: "insert",
-          schema: "test_results",
-          table: "results",
-          records: [
-            {
-              KH,
-              CA,
-              MG,
-              NO2,
-              NO3,
-              PO4,
-              date,
-              year
-            },
-          ],
-        });
-
-        const info = GetDBInfo();
+        const newResult = {
+          KH,
+          CA,
+          MG,
+          NO2,
+          NO3,
+          PO4,
+          date,
+        }
   
-        var config = {
-          method: "POST",
-          url: atob(info[1]),
-          headers: { 
-            "Content-Type": "application/json",
-            Authorization: atob(info[0]),
-          },
-          data: data,
-        };
-  
-        const response = await axios(config);
-        console.log(response.data);
+        const response = insertNewTest(newResult);
+        console.log(response);
         navigate('/olix-reef-tests/', {state: {
           reload: true,
         }});

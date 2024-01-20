@@ -28,6 +28,20 @@ class DATABASE {
             })
         });
     };
+
+    insertNewTest = ():Promise<object> => {
+        const query = `INSERT INTO results SET ?`;
+        const params = {
+            edited : false
+        };
+        return new Promise((resolve) => {
+            this.connection.query(query, params, (err, result) => {
+                if (err) return console.log(err);
+                resolve(result);
+            })
+        });
+    };
+
 }
 
 const host:string = "151.30.143.166";
